@@ -1560,6 +1560,7 @@ MonoBehaviour:
   camrotator: {fileID: 2111100447}
   inventory: {fileID: 683880420}
   inventoryscript: {fileID: 683880424}
+  fightcontroller: {fileID: 588865568}
   go: {fileID: 766466705}
   bossCard: {fileID: 357737863}
   token: {fileID: 357244050}
@@ -1631,6 +1632,7 @@ MonoBehaviour:
   armor: 0
   mana: 0
   stamina: 0
+  spawn: {fileID: 0}
   Gobelin: {fileID: 100702, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 2}
 --- !u!81 &140618116
 AudioListener:
@@ -1713,7 +1715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de5fe1a4585e644faeac209cf2003d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vide: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  vide: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 3}
   libre: {fileID: 21300000, guid: 5a99a02b89d4ef747ba004ebbeafadc8, type: 3}
   sword1: {fileID: 21300000, guid: c69bb888f9a791c409a92054eff44eab, type: 3}
   Crossroad: {fileID: 21300000, guid: f90b77a6b13229649b04b579dd0b7a47, type: 3}
@@ -4777,9 +4779,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83a8eec7aab17946a4b19ccdf6239f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camjoueur: {fileID: 0}
+  weaponObject: {fileID: 0}
   weapon: {fileID: 584809128}
-  parent: {fileID: 1887356045}
+  weaponSpot: {fileID: 0}
+  body: {fileID: 0}
   s: {fileID: 140618115}
+  epee1: {fileID: 0}
+  epee2: {fileID: 0}
+  epee3: {fileID: 0}
+  dague: {fileID: 0}
+  katana: {fileID: 0}
   hit: {fileID: 584809132}
   compteur: 0
   charge: 0
@@ -4788,13 +4798,10 @@ MonoBehaviour:
   isAttacking2: 0
   isCharging: 0
   isAttackingCharged: 0
+  lastHit: 
   isBlocking: 0
   aSpeed: 0
-  BladeDmg: 0
-  BluntDmg: 0
-  MagicDmg: 0
-  ElementalDmg: 0
-  Armor: 0
+  damages: {fileID: 0}
   Stamina: 0
   maxStamina: 0
   Mana: 0
@@ -14007,14 +14014,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1887356045}
-  playerCollider: {fileID: 1887356050}
-  mobAnim: {fileID: 1250300995}
-  test: {fileID: 1250300991}
-  closeEnough: 0
-  canDash: 1
-  isDashing: 0
   speed: 10
-  targetPos: {x: 0, y: 0, z: 0}
+  distanceMin: 0
+  distanceMax: 0
 --- !u!114 &1250300990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14027,11 +14029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 50
---- !u!111 &1250300991 stripped
-Animation:
-  m_PrefabParentObject: {fileID: 11100000, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
-    type: 2}
-  m_PrefabInternal: {fileID: 1022428159}
+  armor: 0
 --- !u!65 &1250300993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14080,6 +14078,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1887356045}
   weapon: {fileID: 1789213951}
+  damage: {fileID: 0}
+  distanceMax: 0
 --- !u!1 &1301006113
 GameObject:
   m_ObjectHideFlags: 0
@@ -18429,7 +18429,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1808341552}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -22237,6 +22237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 50
+  armor: 0
 --- !u!1 &1893738832
 GameObject:
   m_ObjectHideFlags: 0

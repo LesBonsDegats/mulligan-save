@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour
     public Button Button1;
     public Button Button2;
 
-   
+
 
     /*
     public GameObject followCursor;
@@ -64,7 +64,7 @@ public class Inventory : MonoBehaviour
 
         chosen = Inventory1;
         s = cam.GetComponent<NewBehaviourScript>();
-      //  spriteFollowCursor = followCursor.GetComponent<SpriteRenderer>();
+        //  spriteFollowCursor = followCursor.GetComponent<SpriteRenderer>();
 
         stashSlots = new List<InventaireSlot>
         {
@@ -81,6 +81,8 @@ public class Inventory : MonoBehaviour
         };
 
         AddItem(2);
+        InventoryLeftHand.setId(2);
+        s.SetFightAttributes();
     }
 
     // Update is called once per frame
@@ -247,7 +249,7 @@ public class Inventory : MonoBehaviour
     public void removeItem()
     {
         holdid = 0;
-        foreach(InventaireSlot slot in stashSlots)
+        foreach (InventaireSlot slot in stashSlots)
         {
             if (slot.id == 1)
             {
@@ -255,7 +257,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        foreach(InventaireSlot slot in equipSlots)
+        foreach (InventaireSlot slot in equipSlots)
         {
             if (slot.id == 1)
             {
@@ -296,6 +298,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    }
+}
 
 

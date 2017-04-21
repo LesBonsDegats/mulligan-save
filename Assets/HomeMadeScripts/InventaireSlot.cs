@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventaireSlot : MonoBehaviour {
+public class InventaireSlot : MonoBehaviour
+{
 
-   // private Sprite s;
+    // private Sprite s;
     public int id = 0;
 
 
@@ -18,18 +19,20 @@ public class InventaireSlot : MonoBehaviour {
     private helpButton help;
     private string helpMessage;
 
-	// Use this for initialization
-	void Start () {
-  
+    // Use this for initialization
+    void Start()
+    {
+
         img = this.GetComponent<Image>();
         help = this.GetComponent<helpButton>();
         i = MainCam.GetComponent<Items>();
         setId(id);
     }
-	
-	// Update is called once per frame
-	void Update() { 
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
 
     public void setId(int a)
     {
@@ -40,7 +43,7 @@ public class InventaireSlot : MonoBehaviour {
         help.isActive = id > 1;
         Sprite image = i.ImageList[a];
         img.sprite = image;
-        
+
     }
 
 

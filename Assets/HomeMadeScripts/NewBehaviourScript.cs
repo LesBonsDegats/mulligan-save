@@ -54,6 +54,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject inventory;
 
     public Inventory inventoryscript = new Inventory();
+    public fightcontroller fightcontroller;
 
     public GameObject go;
     public GameObject bossCard;
@@ -115,7 +116,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private bool[] Abilities;
     public List<string> allAbilities = new List<string>();
-    
+
     //stats de combat
     public int idArme;
     public int idArme2;
@@ -134,7 +135,7 @@ public class NewBehaviourScript : MonoBehaviour
     public int stamina;
 
     //monstres
-    private Vector3 spawn;
+    public Transform spawn;
     public GameObject Gobelin;
 
 
@@ -142,7 +143,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spawn = Gobelin.transform.position;
+
         Abilities = new bool[20];
         for (int i = 0; i < 19; i++)
         {
@@ -174,11 +175,12 @@ public class NewBehaviourScript : MonoBehaviour
 
 
 
-        inventoryscript = inventory.GetComponent<Inventory>();
+        // inventoryscript = inventory.GetComponent<Inventory>();
         SetFightAttributes();
         SpriteRenderer sr = ShowCard.GetComponent<SpriteRenderer>();
         tS = fichePerso.GetComponent<textScript>();
         iniLvl(6);
+
     }
 
     public void iniLvl(int nbreCases)
@@ -492,12 +494,14 @@ public class NewBehaviourScript : MonoBehaviour
         {
             while (enemies[i] > 0)
             {
-                Instantiate(Gobelin, spawn, new Quaternion(0, 90, 0, 0));
+                Instantiate(Gobelin, spawn);
                 enemies[i]--;
             }
         }
 
+        this.fightcontroller.updateStats();
         sC.changeCamera();
+
         isFighting = true;
 
     }
@@ -526,7 +530,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    //    Ray CheckBelowHit = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    Ray CheckBelowHit = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
 
@@ -541,7 +545,7 @@ public class NewBehaviourScript : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, 100.0F))
                 {
-                   
+
 
                     if (isAdj(token, hit) && canMove)
                     {
@@ -577,7 +581,7 @@ public class NewBehaviourScript : MonoBehaviour
 
 
                     }
-                    
+
                     else
                     {
                         inventoryscript.Clicked(hit);
@@ -622,15 +626,15 @@ public class NewBehaviourScript : MonoBehaviour
         {
             if (!isFighting)
             {
-                launchFight(new int[] { 1 });
+                launchFight(new int[] { 0 });
             }
             else
             {
                 endFight();
             }
         }
-        }
-    
+    }
+
 
     public void LevelUp()
     {
@@ -646,7 +650,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         if (index > 0 && index < 20)
             Abilities[allAbilities.FindIndex(x => x == str)] = true;
-        
+
     }
 
 
@@ -701,16 +705,17 @@ public class NewBehaviourScript : MonoBehaviour
         foreach (InventaireSlot item in equipement)
         {
 
-            
-            switch(item.id)
+
+            switch (item.id)
             {
+
                 case 2: //épée en acier
                     {
                         idArme = 2;
                         BladeDmg += (int)(5 + agility * 0.2);
-                        aspeed = 50; //?
                     }
                     break;
+
 
 
             }
@@ -725,9 +730,9 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
 
-    
 
-    }
+
+}
 
 
 

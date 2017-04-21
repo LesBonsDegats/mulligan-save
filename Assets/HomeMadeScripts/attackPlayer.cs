@@ -3,38 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class attackPlayer : MonoBehaviour {
+public class attackPlayer : MonoBehaviour
+{
 
 
     public GameObject Player;
     public GameObject weapon;
+    public damageOutput damage;
 
+    public int distanceMax;
 
-    private mobAnimation mobAnim;
-    private bool canAttack = true;
-	// Use this for initialization
-	void Start () {
-        mobAnim = this.GetComponent<mobAnimation>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (isCloseEnough() && canAttack)
-        {
-            attack();
-        }
- 
-	}
-
-    public void attack()
+    // Use this for initialization
+    void Start()
     {
-        mobAnim.playAnimation("attack1");
-        weapon.tag = "weaponAttack";
+    }
 
-        canAttack = false;
+    // Update is called once per frame
+    void Update()
+    {
 
-        StartCoroutine("attackCd");
-        StartCoroutine("attackSpan");
+
+    }
+
+    public bool getCommand()
+    {
+        return isCloseEnough();
     }
 
     public bool isCloseEnough()
@@ -44,42 +37,27 @@ public class attackPlayer : MonoBehaviour {
 
         float distance = (float)Math.Sqrt((posx - transform.position.x) * (posx - transform.position.x) + (posz - transform.position.z) * (posz - transform.position.z));
 
-        return (distance < 2);
+        return (distance < distanceMax);
     }
 
-    IEnumerator attackCd()
-    {
-        bool swtch = false;
-
-        while (true)
-        {
-
-            if (swtch)
-            {
-                canAttack = true;
-                StopCoroutine("attackCd");
-            }
-
-            swtch = true;
-            yield return new WaitForSeconds(3);
-        }
-    }
-
-    IEnumerator attackSpan()
-    {
-        bool swtch = false;
-        while (true)
-        {
-
-            if (swtch)
-            {
-                StopCoroutine("attackSpan");
-                mobAnim.playAnimation("combat_idle");
-            }
-
-            swtch = true;
-            yield return new WaitForSeconds(2f);
-        }
-
-    }
 }
+
+    /*
+
+    IEnumerator OneSecUpdate()
+    {
+        while (true)
+        {
+            if (isCloseEnough() && canAttack)
+            {
+                attack();
+            }
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    public void attack()
+    {
+        mobAnim.playAnimation("attack1");
+        weapon.tag = "weaponAttack";
+         */                           

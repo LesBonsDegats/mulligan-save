@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class textScript : MonoBehaviour {
-     public NewBehaviourScript s;
+public class textScript : MonoBehaviour
+{
+    public NewBehaviourScript s;
     public Text vie;
     public Text nourriture;
     public Text or;
@@ -79,7 +80,7 @@ public class textScript : MonoBehaviour {
     public GameObject damages;
     private int showcaseIndex = 0;
 
-    void Start ()
+    void Start()
     {
 
         GlobalAbilities = "";
@@ -117,7 +118,7 @@ public class textScript : MonoBehaviour {
         int compteur = 0;
 
 
-        while(k > 0 && compteur < L)
+        while (k > 0 && compteur < L)
         {
             if (txt[compteur] == '\n')
                 k--;
@@ -154,7 +155,7 @@ public class textScript : MonoBehaviour {
             armor.text = "Armure: " + s.armor.ToString();
         }
         else
-        { 
+        {
             BladeDmg.text = "Dégats Tranchants: " + s.BladeDmg.ToString();
             BluntDmg.text = "Dégats d'Ecrasement: " + s.BluntDmg.ToString();
             MagicalDmg.text = "Dégats Magiques: " + s.MagicalDmg.ToString();
@@ -162,8 +163,8 @@ public class textScript : MonoBehaviour {
         }
         experience.text = "Experience:  " + s.xp.ToString() + "/" + s.xpmax.ToString();
         Force.text = "Force:  " + (s.strenght + PotentialFrc).ToString();
-        Chance.text = "Chance:  " + (s.luck +PotentialLck).ToString();
-        Charisme.text = "Charisme:  " + (s.charisma +PotentialCha).ToString();
+        Chance.text = "Chance:  " + (s.luck + PotentialLck).ToString();
+        Charisme.text = "Charisme:  " + (s.charisma + PotentialCha).ToString();
         Agilité.text = "Agilité:  " + (s.agility + PotentialAgi).ToString();
         Intelligence.text = "Intelligence:  " + (s.intel + PotentialInt).ToString();
     }
@@ -220,13 +221,13 @@ public class textScript : MonoBehaviour {
         change_text();
         ButtonUpdate();
 
-        
+
     }
 
 
     public void LevelUp()
     {
-        nom.text = "Vous atteignez le niveau "+s.level.ToString()+" !";
+        nom.text = "Vous atteignez le niveau " + s.level.ToString() + " !";
         ChooseOne.SetActive(true);
         s.canMove = false;
         specPoints++;
@@ -238,7 +239,7 @@ public class textScript : MonoBehaviour {
         s.allAbilities.Remove(Choice1_ability);
         count--;
 
-        
+
 
         Choice2_ability = s.allAbilities[rnd.Next(count)];
         s.allAbilities.Remove(Choice2_ability);
@@ -279,7 +280,7 @@ public class textScript : MonoBehaviour {
         }
         abilityNumber++;
         AbilityTextUpdate();
-       
+
 
         PotentialFrc = 0;
         PotentialAgi = 0;
@@ -324,15 +325,16 @@ public class textScript : MonoBehaviour {
 
     public void AbilityTextUpdate()
     {
-        AbilityText.text = GetxLinesStartFromK(12, GlobalAbilities, (int)(AbilityScroll.value * abilityNumber * 2 - 6));    
+        AbilityText.text = GetxLinesStartFromK(12, GlobalAbilities, (int)(AbilityScroll.value * abilityNumber * 2 - 6));
 
     }
 
     // Update is called once per frame
-    
 
 
-	// Update is called once per frame
-	void Update () {
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
 }
