@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1de5fe1a4585e644faeac209cf2003d2
+timeCreated: 1486048275
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ShadyEncounter: {fileID: 21300000, guid: f90b77a6b13229649b04b579dd0b7a47, type: 3}
+  - Crossroad: {fileID: 21300000, guid: f90b77a6b13229649b04b579dd0b7a47, type: 3}
+  - The_Gate: {fileID: 21300000, guid: f90b77a6b13229649b04b579dd0b7a47, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

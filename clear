@@ -1,0 +1,111 @@
+[33mcommit 7676474bde512c2cfac5c5de91992cf94039a6c1[m
+Author: project-epita <bourdet.jeremie@gmail.com>
+Date:   Wed Feb 8 13:45:46 2017 +0100
+
+    test pour le petit scarabé
+
+[33mcommit fe0ef696e10429086d8cd5dd8e26fc0d6171f13f[m
+Author: victor c <victor c>
+Date:   Wed Feb 8 14:18:06 2017 +0100
+
+    fix la barre de vie
+
+[33mcommit 3d2f82fd38af4f24f2b3b499024d12e87b25388e[m
+Author: victor c <victor c>
+Date:   Wed Feb 8 13:39:00 2017 +0100
+
+    ajout barres de vie / inventaire
+
+[33mcommit 5e4b94f3e5d27ce9dacc96e147d42e94cd781e6e[m
+Author: victor c <victor c>
+Date:   Wed Feb 1 17:15:11 2017 +0100
+
+    on add les dernières modifs de victor
+
+[33mcommit 1cb2294ed44e715df6c68c289934b96f084fc503[m
+Author: project-epita <bourdet.jeremie@gmail.com>
+Date:   Wed Feb 1 15:42:43 2017 +0100
+
+    Add files via upload
+
+[33mcommit d1678a0137e97f02f85e032f9d1bd4cf115936f4[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:14:42 2017 +0100
+
+    Add files via upload
+    
+    Unity Scripts
+
+[33mcommit 1d78c5380dcefcd812b373b40f67f4b2624aa9de[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:57 2017 +0100
+
+    Delete NewBehaviourScript.cs
+
+[33mcommit 7034efbd5995ead84b45d2cee8a3db897167a189[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:47 2017 +0100
+
+    Delete PCard.cs
+
+[33mcommit 4575d2100c6cd9c62e0db91d0bf4820972aaa96c[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:37 2017 +0100
+
+    Delete bossCardFold.cs
+
+[33mcommit 881bdd8e0a7969f837faf105d15d42f5a99d0047[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:31 2017 +0100
+
+    Delete camFollowMouse.cs
+
+[33mcommit 4e4ec83a02c2a8d8b65ca96e6817267def5da39c[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:24 2017 +0100
+
+    Delete RCard.cs
+
+[33mcommit 831d8fd6f522f6e8ce713871b0cd01ad81384d11[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:17 2017 +0100
+
+    Delete TCard.cs
+
+[33mcommit 2abcdf29457a2a0e6a4b8a97826b6621d8b6c80b[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:11:08 2017 +0100
+
+    Delete AlchemistWorkshop.cs
+
+[33mcommit 58c932a5db44b4078ad12c177baf4dfb16741b1f[m
+Author: Xarang <victor.coatalem@gmail.com>
+Date:   Thu Jan 19 20:10:23 2017 +0100
+
+    Add files via upload
+    
+    Les scripts du projet unity
+
+[33mcommit 84563ebba94a96ec2dd096b68a2972131a3e0ec0[m
+Author: project-epita <bourdet.jeremie@gmail.com>
+Date:   Wed Jan 18 16:26:26 2017 +0100
+
+    premier push unity
+
+[33mcommit 543e5c325a9faa007bd29ec9f9c6274010820441[m
+Author: project-epita <bourdet.jeremie@gmail.com>
+Date:   Wed Jan 18 15:11:23 2017 +0100
+
+    test
+
+[33mcommit c28d3878888e58c46daba65ca2bb0836b115273d[m
+Author: project-epita <bourdet.jeremie@gmail.com>
+Date:   Wed Jan 18 15:10:43 2017 +0100
+
+    premier push
+
+[33mcommit e7dd9fec9e7c58bd5a613561f0e6fbfad39ef3d9[m
+Author: project-epita <bourdet.jeremie@gmail.com>
+Date:   Wed Jan 18 15:57:00 2017 +0100
+
+    Initial commit
