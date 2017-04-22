@@ -70,10 +70,18 @@ public class mobAnimation : MonoBehaviour {
     {
         while (true)
         {
-            if (animator != null)
-                isDoingSomething = !animator.GetCurrentAnimatorStateInfo(0).IsName("idle");
-            else
-                isDoingSomething = !Anim.IsPlaying("combat_idle");
+            switch(monsterId)
+            {
+                case (0): //gobelin
+                    isDoingSomething = !Anim.IsPlaying("combat_idle");
+                    break;
+                case (1): //squelette
+                    isDoingSomething = !animator.GetCurrentAnimatorStateInfo(0).IsName("idle");
+                    break;
+                case (2): //araignée
+                    isDoingSomething = !Anim.IsPlaying("idle");
+                    break;
+            }
 
             if (!isDoingSomething)
             {
@@ -204,6 +212,9 @@ public class mobAnimation : MonoBehaviour {
             case 0: //gobelin
                 Anim.Play(str);
                 break;
+            case 2:
+                Anim.Play(str);
+                break;
             case 1: //squelette
                 if (str == "attack1")
                 {
@@ -316,7 +327,13 @@ public class mobAnimation : MonoBehaviour {
         {
             if (swtch)
             {
-                playAnim("combat_idle");
+                if (Anim.GetClip("combat_idle") != null)
+                {
+                    playAnim("combat_idle");
+                }
+                else
+                    playAnim("idle");
+
                 yield break;
             }
             swtch = true;
