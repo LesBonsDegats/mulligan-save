@@ -11,6 +11,8 @@ public class switchCamera : MonoBehaviour {
 
     private AudioListener cam1Listener;
 
+    public AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
         cam1Listener = cam1.GetComponent<AudioListener>();
@@ -30,7 +32,7 @@ public class switchCamera : MonoBehaviour {
 
 
         cam2.SetActive(!cam2.activeInHierarchy);
-        cam1Listener.enabled = !cam2.activeInHierarchy;
-
+        cam1Listener.enabled = (!cam2.activeInHierarchy);
+       // audioSource.enabled = (!cam2.activeInHierarchy);
     }
 }

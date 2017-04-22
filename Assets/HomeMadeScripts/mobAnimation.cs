@@ -21,14 +21,18 @@ public class mobAnimation : MonoBehaviour {
     public dashOnPlayer dashOnPlayer;
     public strafeAroundPlayer strafeAroundPlayer;
     public attackPlayer attackPlayer;
+    public approachPlayer approachPlayer;
 
     public bool isDoingSomething;
     public bool isDashing;
+    public bool isApproaching;
     public bool isStrafingLeft;
     public bool isStrafingRight;
     //cooldowns
     public bool canDash;
     public bool canAttack;
+
+    public int speed; //approach speed
 
     public List<Coroutine> SpanList;
     public List<Coroutine> CdList;
@@ -50,18 +54,23 @@ public class mobAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isDashing)
+        if (isApproaching)
+        {
+            this.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+        }
+        else if (isDashing)
         {
             this.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * dashOnPlayer.speed);
         }
         else if (isStrafingLeft)
         {
-            this.transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * dashOnPlayer.speed);
+            this.transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * strafeAroundPlayer.speed);
         }
         else if (isStrafingRight)
         {
-            this.transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * dashOnPlayer.speed);
+            this.transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * strafeAroundPlayer.speed);
         }
+       
 
 
     }
@@ -88,6 +97,10 @@ public class mobAnimation : MonoBehaviour {
                 GetCommands();
                 ExecuteBestCommand();
                 Agenda = new int[5];
+                for (int i = 0; i < 5; i++)
+                {
+                    Agenda[i] = 0;
+                }
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -96,11 +109,30 @@ public class mobAnimation : MonoBehaviour {
 
     public void GetCommands()
     {
-        Agenda[0] = 1;
-        Agenda[1] = 0;
-        Agenda[4] = 0;
+        System.Random rnd = new System.Random();
+        ////////////////////////////////
+        if (approachPlayer != null)
+        {
+           // int tirage = rnd.Next(4);
+           // if (tirage == 1)
+           // {
+                if (approachPlayer.getCommand())
+                {
+                    Agenda[0] = 1;
+                }
+                else { Agenda[0] = 0; }
+          //  }
+        }
+        /////////////////////////////////////
 
-
+        if(strafeAroundPlayer != null)
+        {
+            if (strafeAroundPlayer.getCommand())
+            {
+                Agenda[1] = 1;
+            }
+            else { Agenda[1] = 0; }
+        }
         ////////////////////////////////////////////////////
         if (attackPlayer != null)
         {
@@ -108,10 +140,7 @@ public class mobAnimation : MonoBehaviour {
             {
                 Agenda[3] = 1;
             }
-        }
-        else
-        {
-            Agenda[3] = 0;
+            else { Agenda[3] = 0; }
         }
         ////////////////////////////////////////////////////
         if (dashOnPlayer != null )
@@ -120,12 +149,11 @@ public class mobAnimation : MonoBehaviour {
             {
                 Agenda[2] = 1;
             }
-        }
-        else
-        {
-            Agenda[2] = 0;
+            else { Agenda[2] = 0; }
         }
         //////////////////////////////////////////////////////
+
+        Agenda[4] = 0;
     }
     public void ExecuteBestCommand()
     {
@@ -135,8 +163,6 @@ public class mobAnimation : MonoBehaviour {
 
 
         // approach action à intéret la plus basse, valeur par défaut
-        Agenda[0] = 1; //useless mais pour la clarté on laisse
-
 
         // strafe AroundPlayer, en conflit avec dashOnPlayer et ayant pour but de délayer le dash (créer l'effet de surprise)
         Agenda[1] *= 2;
@@ -160,15 +186,22 @@ public class mobAnimation : MonoBehaviour {
         if (player.isAttacking)
             Agenda[4] *= 2;
 
-        int index = getMaxValueIndex(Agenda);
 
+
+        int index = getMaxValueIndex(Agenda);
         switch (index)
         {
             case (0):
-                //approach();
-                break;
+                {
+                    if (Agenda[0] != 0)
+                    {
+                        approach();
+                        Debug.Log("youyou");
+                    }
+                }
+                 break;
             case (1):
-                //strafe();
+                strafe();
                 break;
             case (2):
                 dash();
@@ -178,9 +211,6 @@ public class mobAnimation : MonoBehaviour {
                 break;
             case (4):
                // block();
-                break;
-            default:
-                dash();
                 break;
         }
     }
@@ -212,7 +242,7 @@ public class mobAnimation : MonoBehaviour {
             case 0: //gobelin
                 Anim.Play(str);
                 break;
-            case 2:
+            case 2: //spider
                 Anim.Play(str);
                 break;
             case 1: //squelette
@@ -267,14 +297,28 @@ public class mobAnimation : MonoBehaviour {
 
     public void dash()
     {
+        Debug.Log(monsterId);
         isDashing = true;
         canDash = false;
 
         StartCoroutine(Cooldown(4, "dashOnPlayer"));
-        StartCoroutine(Span(Anim["run"].length));
+        StartCoroutine(Span(Anim["run"].length, "dash"));
 
 
         playAnim("run");
+    }
+
+    public void approach()
+    {
+        isApproaching = true;
+        if (monsterId != 0)
+        {
+            playAnim("walk");
+        }
+        if (monsterId != 1)
+            StartCoroutine(Span(Anim["walk"].length, "approach"));
+        else
+            StartCoroutine(Span(1.04f, "approach"));
     }
 
     public void strafe()
@@ -297,7 +341,7 @@ public class mobAnimation : MonoBehaviour {
             default:
                 break;
         }
-        StartCoroutine(Span((float)rnd.NextDouble()*1.5f));
+        StartCoroutine(Span((float)rnd.NextDouble()*1.5f, "strafe"));
         playAnim("walk");
     }
 
@@ -314,13 +358,13 @@ public class mobAnimation : MonoBehaviour {
         canAttack = false;
 
         StartCoroutine(Cooldown(2, "attackPlayer"));
-        StartCoroutine(Span(Anim["attack1"].length));
+        StartCoroutine(Span(Anim["attack1"].length, "attack"));
         attackPlayer.weapon.tag = "weaponAttack";
 
         playAnim("attack1");
     }
 
-    IEnumerator Span(float seconds)
+    IEnumerator Span(float seconds, string action)
     {
         bool swtch = false;
         while (true)
@@ -333,6 +377,24 @@ public class mobAnimation : MonoBehaviour {
                 }
                 else
                     playAnim("idle");
+
+                switch(action)
+                {
+                    case ("dash"):
+                        isDashing = false;
+                        break;
+                    case ("approach"):
+                        isApproaching = false;
+                        break;
+                    case ("strafe"):
+                        isStrafingLeft = false;
+                        isStrafingRight = false;
+                        break;
+                    case ("attack"):
+                        attackPlayer.weapon.tag = "weapon";
+                        break;
+
+                }
 
                 yield break;
             }
