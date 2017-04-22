@@ -39,7 +39,7 @@ public class fightcontroller : MonoBehaviour
     public string lasthit;
 
     public float aSpeed;
-    public damageOutput damages;
+    private damageOutput damages;
 
     public int Stamina;
     public int maxStamina;
@@ -62,22 +62,6 @@ public class fightcontroller : MonoBehaviour
 
     public void updateStats()
     {
-
-        aSpeed = s.aspeed;
-        damages.BladeDamage = s.BladeDmg;
-        damages.BluntDamage = s.BluntDmg;
-        damages.MagicDamage = s.MagicalDmg;
-        damages.ElementalDamage = s.ElementalDmg;
-
-        body.armor = s.armor;
-
-        maxMana = s.mana;
-        Mana = maxMana;
-
-        maxStamina = s.stamina;
-        Stamina = maxStamina;
-
-        body.life = s.life;
 
         GameObject newWeapon = null;
 
@@ -109,6 +93,28 @@ public class fightcontroller : MonoBehaviour
         weaponObject = Instantiate(newWeapon, weaponSpot.position, weaponSpot.rotation, camjoueur.transform);
         weapon = weaponObject.GetComponent<Collider>();
         hit = weaponObject.GetComponent<Animator>();
+        if (weaponObject != null)
+        {
+            damages = weaponObject.GetComponent<damageOutput>();
+
+            aSpeed = s.aspeed;
+            damages.BladeDamage = s.BladeDmg;
+            damages.BluntDamage = s.BluntDmg;
+            damages.MagicDamage = s.MagicalDmg;
+            damages.ElementalDamage = s.ElementalDmg;
+
+            body.armor = s.armor;
+
+            maxMana = s.mana;
+            Mana = maxMana;
+
+            maxStamina = s.stamina;
+            Stamina = maxStamina;
+
+            body.life = s.life;
+
+            
+        }
     }
     // Update is called once per frame
 

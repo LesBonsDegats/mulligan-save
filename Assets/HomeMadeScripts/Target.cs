@@ -30,13 +30,13 @@ public class Target : MonoBehaviour
 
 
             GameObject parent = collision.gameObject;
-            while (parent.transform.parent != null && GetComponent<damageOutput>() == null)
+            while (parent.transform.parent != null)
             {
                 parent = parent.transform.parent.gameObject;
             }
 
             Vector3 distance = parent.transform.position - this.transform.position;
-            damageOutput damage = parent.GetComponent<damageOutput>();
+            damageOutput damage = collision.collider.GetComponent<damageOutput>();
             bool isDead = takeDamage(damage);
             if (isDead)
             {

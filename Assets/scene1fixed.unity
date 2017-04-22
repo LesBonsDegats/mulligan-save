@@ -1776,6 +1776,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09385111, y: 0.17628327, z: 0.6877522}
   m_Center: {x: -0.0067177103, y: 0.0032133297, z: -0.34973198}
+--- !u!114 &156536191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156536185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 0
+  BluntDamage: 0
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &168482263
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,7 +4741,6 @@ MonoBehaviour:
   isBlocking: 0
   lasthit: 
   aSpeed: 0
-  damages: {fileID: 1887356054}
   Stamina: 0
   maxStamina: 0
   Mana: 0
@@ -6503,6 +6517,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.093851104, y: 0.121105194, z: 0.61233807}
   m_Center: {x: -0.002098736, y: -0.0024914704, z: -0.31746465}
+--- !u!114 &780427070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 780427064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 0
+  BluntDamage: 0
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &784373150
 GameObject:
   m_ObjectHideFlags: 0
@@ -7036,7 +7065,7 @@ GameObject:
   - component: {fileID: 867613884}
   - component: {fileID: 867613883}
   m_Layer: 0
-  m_Name: goblinTarget
+  m_Name: MonsterTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8480,6 +8509,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.093851104, y: 0.20243691, z: 0.726028}
   m_Center: {x: -0.014839647, y: 0.0065388414, z: -0.3577034}
+--- !u!114 &998238006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998238000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 0
+  BluntDamage: 0
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &1016547883
 GameObject:
   m_ObjectHideFlags: 0
@@ -14014,21 +14058,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
---- !u!114 &1215576609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1215576607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BladeDamage: 8
-  BluntDamage: 0
-  MagicDamage: 0
-  ElementalDamage: 0
 --- !u!95 &1215576610
 Animator:
   serializedVersion: 3
@@ -14080,7 +14109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1887356045}
   weapon: {fileID: 1849594355}
-  damage: {fileID: 1215576609}
+  damage: {fileID: 1849594360}
   distanceMax: 3
 --- !u!114 &1215576613
 MonoBehaviour:
@@ -14945,21 +14974,6 @@ MonoBehaviour:
   isDashing: 0
   canDash: 0
   canAttack: 0
---- !u!114 &1250300992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1250300986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BladeDamage: 5
-  BluntDamage: 5
-  MagicDamage: 0
-  ElementalDamage: 0
 --- !u!65 &1250300993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14985,7 +14999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1887356045}
   weapon: {fileID: 1789213951}
-  damage: {fileID: 1250300992}
+  damage: {fileID: 1789213954}
   distanceMax: 3
 --- !u!1 &1301006113
 GameObject:
@@ -16247,6 +16261,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.093851104, y: 0.121105194, z: 0.61233807}
   m_Center: {x: -0.002098736, y: -0.0024914704, z: -0.31746465}
+--- !u!114 &1468806243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468806237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 0
+  BluntDamage: 0
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &1474905331
 GameObject:
   m_ObjectHideFlags: 0
@@ -19022,6 +19051,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5128541, y: 0.108232185, z: 0.34687904}
   m_Center: {x: -0.4024709, y: -0.088538684, z: 0.09180205}
+--- !u!114 &1789213954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1789213951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 5
+  BluntDamage: 5
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &1789610507
 GameObject:
   m_ObjectHideFlags: 0
@@ -22755,6 +22799,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09385111, y: 0.079155624, z: 1.0074483}
   m_Center: {x: -0.015557415, y: -0.01679151, z: -0.4992529}
+--- !u!114 &1844899385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1844899379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 0
+  BluntDamage: 0
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &1849594355
 GameObject:
   m_ObjectHideFlags: 0
@@ -22766,6 +22825,7 @@ GameObject:
   - component: {fileID: 1849594358}
   - component: {fileID: 1849594357}
   - component: {fileID: 1849594356}
+  - component: {fileID: 1849594360}
   m_Layer: 0
   m_Name: skeletonWeaponBox
   m_TagString: weapon
@@ -22836,6 +22896,21 @@ Transform:
   m_Father: {fileID: 265011168}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -0.651, y: -41.431004, z: -90.026}
+--- !u!114 &1849594360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1849594355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BladeDamage: 8
+  BluntDamage: 0
+  MagicDamage: 0
+  ElementalDamage: 0
 --- !u!1 &1867739704
 GameObject:
   m_ObjectHideFlags: 0
@@ -23102,7 +23177,6 @@ GameObject:
   - component: {fileID: 1887356047}
   - component: {fileID: 1887356052}
   - component: {fileID: 1887356053}
-  - component: {fileID: 1887356054}
   m_Layer: 0
   m_Name: corps
   m_TagString: Player
@@ -23246,21 +23320,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 50
   armor: 5
---- !u!114 &1887356054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1887356045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d82f4c0947bda742b2d019935db98ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BladeDamage: 0
-  BluntDamage: 0
-  MagicDamage: 0
-  ElementalDamage: 0
 --- !u!1 &1893738832
 GameObject:
   m_ObjectHideFlags: 0
