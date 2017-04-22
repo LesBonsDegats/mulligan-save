@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class mobAnimation : MonoBehaviour {
 
+    public int monsterId;
+
     private Animation Anim;
+    public Animator animator;
 
     public fightcontroller player;
 
@@ -50,20 +53,23 @@ public class mobAnimation : MonoBehaviour {
             this.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * dashOnPlayer.speed);
         }
 
+      
 	}
 
     IEnumerator getNextAction()
     {
         while (true)
         {
+            if (animator != null)
+                isDoingSomething = !animator.GetCurrentAnimatorStateInfo(0).IsName("idle");
+            else
+                isDoingSomething = !Anim.IsPlaying("combat_idle");
 
-            isDoingSomething = !Anim.IsPlaying("combat_idle");
             if (!isDoingSomething)
             {
                 GetCommands();
                 ExecuteBestCommand();
                 Agenda = new int[5];
-               // Debug.Log("ticked");
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -183,7 +189,35 @@ public class mobAnimation : MonoBehaviour {
 
     public void playAnim(string str)
     {
-        Anim.Play(str);
+        switch(monsterId)
+        {
+            case 0: //gobelin
+                Anim.Play(str);
+                break;
+            case 1: //squelette
+                if (str == "attack1")
+                {
+                    animator.SetBool("attack1", true);
+                    animator.SetBool("walk", false);
+                    animator.SetBool("combat_idle", false);
+                }
+                else if (str == "walk")
+                {
+                    animator.SetBool("attack1", false);
+                    animator.SetBool("walk", true);
+                    animator.SetBool("combat_idle", false);
+                }
+                else if (str == "combat_idle")
+                {
+                    animator.SetBool("attack1", false);
+                    animator.SetBool("walk", false);
+                    animator.SetBool("combat_idle", true);
+                }
+                break;
+        }
+    
+
+
     }
 
     IEnumerator Cooldown (float seconds, string action)
