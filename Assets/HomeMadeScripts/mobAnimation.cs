@@ -24,11 +24,14 @@ public class mobAnimation : MonoBehaviour {
 
     public bool isDoingSomething;
     public bool isDashing;
+    public bool isApproaching;
     public bool isStrafingLeft;
     public bool isStrafingRight;
     //cooldowns
     public bool canDash;
     public bool canAttack;
+
+    public int speed; //approach speed
 
     public List<Coroutine> SpanList;
     public List<Coroutine> CdList;
@@ -50,18 +53,23 @@ public class mobAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isDashing)
+        if (isApproaching)
+        {
+            this.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+        }
+        else if (isDashing)
         {
             this.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * dashOnPlayer.speed);
         }
         else if (isStrafingLeft)
         {
-            this.transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * dashOnPlayer.speed);
+            this.transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * strafeAroundPlayer.speed);
         }
         else if (isStrafingRight)
         {
-            this.transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * dashOnPlayer.speed);
+            this.transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * strafeAroundPlayer.speed);
         }
+       
 
 
     }
@@ -165,10 +173,10 @@ public class mobAnimation : MonoBehaviour {
         switch (index)
         {
             case (0):
-                //approach();
+              //  approach();
                 break;
             case (1):
-                //strafe();
+                strafe();
                 break;
             case (2):
                 dash();
@@ -267,14 +275,22 @@ public class mobAnimation : MonoBehaviour {
 
     public void dash()
     {
+        Debug.Log(monsterId);
         isDashing = true;
         canDash = false;
 
         StartCoroutine(Cooldown(4, "dashOnPlayer"));
-        StartCoroutine(Span(Anim["run"].length));
+        StartCoroutine(Span(Anim["run"].length, "dash"));
 
 
         playAnim("run");
+    }
+
+    public void approach()
+    {
+        isApproaching = true;
+
+        StartCoroutine(Span(1, "approach"));
     }
 
     public void strafe()
@@ -297,7 +313,7 @@ public class mobAnimation : MonoBehaviour {
             default:
                 break;
         }
-        StartCoroutine(Span((float)rnd.NextDouble()*1.5f));
+        StartCoroutine(Span((float)rnd.NextDouble()*1.5f, "strafe"));
         playAnim("walk");
     }
 
@@ -314,13 +330,13 @@ public class mobAnimation : MonoBehaviour {
         canAttack = false;
 
         StartCoroutine(Cooldown(2, "attackPlayer"));
-        StartCoroutine(Span(Anim["attack1"].length));
+        StartCoroutine(Span(Anim["attack1"].length, "attack"));
         attackPlayer.weapon.tag = "weaponAttack";
 
         playAnim("attack1");
     }
 
-    IEnumerator Span(float seconds)
+    IEnumerator Span(float seconds, string action)
     {
         bool swtch = false;
         while (true)
@@ -333,6 +349,24 @@ public class mobAnimation : MonoBehaviour {
                 }
                 else
                     playAnim("idle");
+
+                switch(action)
+                {
+                    case ("dash"):
+                        isDashing = false;
+                        break;
+                    case ("approach"):
+                        isApproaching = false;
+                        break;
+                    case ("strafe"):
+                        isStrafingLeft = false;
+                        isStrafingRight = false;
+                        break;
+                    case ("attack"):
+                        attackPlayer.weapon.tag = "weapon";
+                        break;
+
+                }
 
                 yield break;
             }
