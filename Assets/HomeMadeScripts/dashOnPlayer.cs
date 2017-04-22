@@ -11,8 +11,6 @@ public class dashOnPlayer : MonoBehaviour
     public int distanceMin;
     public int distanceMax;
 
-
-
     // Use this for initialization
     void Start()
     {

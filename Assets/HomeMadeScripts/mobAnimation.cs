@@ -8,7 +8,7 @@ public class mobAnimation : MonoBehaviour {
 
     private Animation Anim;
     public Animator animator;
-
+    private System.Random rnd;
     public fightcontroller player;
 
     public int[] Agenda;
@@ -19,11 +19,13 @@ public class mobAnimation : MonoBehaviour {
     // 4 -> blockPlayer
     // 5 -> 
     public dashOnPlayer dashOnPlayer;
+    public strafeAroundPlayer strafeAroundPlayer;
     public attackPlayer attackPlayer;
 
     public bool isDoingSomething;
     public bool isDashing;
-
+    public bool isStrafingLeft;
+    public bool isStrafingRight;
     //cooldowns
     public bool canDash;
     public bool canAttack;
@@ -52,9 +54,17 @@ public class mobAnimation : MonoBehaviour {
         {
             this.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * dashOnPlayer.speed);
         }
+        else if (isStrafingLeft)
+        {
+            this.transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * dashOnPlayer.speed);
+        }
+        else if (isStrafingRight)
+        {
+            this.transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * dashOnPlayer.speed);
+        }
 
-      
-	}
+
+    }
 
     IEnumerator getNextAction()
     {
@@ -254,6 +264,30 @@ public class mobAnimation : MonoBehaviour {
 
 
         playAnim("run");
+    }
+
+    public void strafe()
+    {
+        int action = rnd.Next(0, 2);
+        switch(action)
+        {
+            case 0:
+                isStrafingLeft = true;
+                isStrafingRight = false;
+                break;
+            case 1:
+                isStrafingLeft = false;
+                isStrafingRight = true;
+                break;
+            case 2:
+                isStrafingLeft = false;
+                isStrafingRight = false;
+                break;
+            default:
+                break;
+        }
+        StartCoroutine(Span((float)rnd.NextDouble()*1.5f));
+        playAnim("walk");
     }
 
     private void OnCollisionEnter(Collision collision)
