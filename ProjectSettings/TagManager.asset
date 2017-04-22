@@ -10,6 +10,8 @@ TagManager:
   - Inventory1
   - weaponAttack
   - weaponBlock
+  - Fire
+  - projectile
   layers:
   - Default
   - TransparentFX

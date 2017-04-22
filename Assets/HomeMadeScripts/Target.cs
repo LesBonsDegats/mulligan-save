@@ -40,13 +40,19 @@ public class Target : MonoBehaviour
             bool isDead = takeDamage(damage);
             if (isDead)
             {
-                this.gameObject.SetActive(false);
+                Destroy(this.gameObject);
             }
-
-
-
             r.AddForce(new Vector3(-distance.x, 0, -distance.z) * 10000);
 
+        }
+    else if (collision.collider.gameObject.tag == "projectile")
+        {
+            damageOutput damage = collision.collider.GetComponent<damageOutput>();
+            bool isDead = takeDamage(damage);
+            if (isDead)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
