@@ -32,6 +32,7 @@ public class mobAnimation : MonoBehaviour {
 	void Start () {
 
         SpanList = new List<Coroutine>();
+
         CdList = new List<Coroutine>();
 
         Agenda = new int[5];
@@ -39,6 +40,7 @@ public class mobAnimation : MonoBehaviour {
         canDash = true;
         canAttack = true;
         StartCoroutine(getNextAction());
+
 	}
 	
 	// Update is called once per frame
@@ -71,7 +73,7 @@ public class mobAnimation : MonoBehaviour {
     public void GetCommands()
     {
         Agenda[0] = 1;
-        Agenda[3] = 0;
+        Agenda[1] = 0;
         Agenda[4] = 0;
 
 
@@ -200,8 +202,8 @@ public class mobAnimation : MonoBehaviour {
                         canAttack = true;
                         break;
                 }
-                foreach (Coroutine co in CdList)
-                  StopCoroutine(co);
+
+                yield break;
             }
             swtch = true;
             yield return new WaitForSeconds(seconds);
@@ -212,8 +214,11 @@ public class mobAnimation : MonoBehaviour {
     {
         isDashing = true;
         canDash = false;
-        CdList.Add(StartCoroutine(Cooldown(4, "dashOnPlayer")));
-        SpanList.Add(StartCoroutine(Span(Anim["run"].length)));
+
+        StartCoroutine(Cooldown(4, "dashOnPlayer"));
+        StartCoroutine(Span(Anim["run"].length));
+
+
         playAnim("run");
     }
 
@@ -228,8 +233,9 @@ public class mobAnimation : MonoBehaviour {
     public void attack()
     {
         canAttack = false;
-        CdList.Add(StartCoroutine(Cooldown(2, "attackPlayer")));
-        CdList.Add(StartCoroutine(Span(Anim["attack1"].length)));
+
+        StartCoroutine(Cooldown(2, "attackPlayer"));
+        StartCoroutine(Span(Anim["attack1"].length));
         attackPlayer.weapon.tag = "weaponAttack";
 
         playAnim("attack1");
@@ -242,11 +248,8 @@ public class mobAnimation : MonoBehaviour {
         {
             if (swtch)
             {
-                Debug.Log("Reset");
                 playAnim("combat_idle");
-
-                foreach (Coroutine co in SpanList)
-                    StopCoroutine(co);
+                yield break;
             }
             swtch = true;
             yield return new WaitForSeconds(seconds);

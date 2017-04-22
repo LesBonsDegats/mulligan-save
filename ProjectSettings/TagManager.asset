@@ -4,20 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Inventory
-  - Inventory11
-  - Inventory12
-  - Inventory13
-  - Inventory14
-  - Inventory15
-  - Inventory16
-  - Inventory17
-  - Inventory20
   - other
   - boat
   - weapon
   - Inventory1
   - weaponAttack
+  - weaponBlock
   layers:
   - Default
   - TransparentFX

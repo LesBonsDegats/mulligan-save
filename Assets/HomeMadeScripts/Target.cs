@@ -43,7 +43,9 @@ public class Target : MonoBehaviour
                 this.gameObject.SetActive(false);
             }
 
-            r.AddForce(new Vector3(-distance.x, 0, -distance.z) * 100);
+
+
+            r.AddForce(new Vector3(-distance.x, 0, -distance.z) * 10000);
 
         }
     }

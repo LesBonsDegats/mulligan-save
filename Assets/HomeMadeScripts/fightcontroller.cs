@@ -34,10 +34,9 @@ public class fightcontroller : MonoBehaviour
 
     public bool isCharging = false;
     public bool isAttackingCharged = false;
-
-    public string lastHit;
-
     public bool isBlocking;
+
+    public string lasthit;
 
     public float aSpeed;
     public damageOutput damages;
@@ -47,6 +46,10 @@ public class fightcontroller : MonoBehaviour
 
     public int Mana;
     public int maxMana;
+
+    public float hit1Duration;
+    public float hit2Duration;
+    public float ChargedHitDuration;
 
 
     // Use this for initialization
@@ -108,19 +111,46 @@ public class fightcontroller : MonoBehaviour
         hit = weaponObject.GetComponent<Animator>();
     }
     // Update is called once per frame
+
+    public void launchAttack(string attackType, int AspeedCoef)
+    {
+        hit.speed = aSpeed * AspeedCoef;
+        weaponObject.tag = "weaponAttack";
+        hit.SetTrigger(attackType);
+
+        float hitDuration = 0;
+        switch(attackType)
+        {
+            case "hit1":
+                hitDuration = hit1Duration;
+                isAttacking1 = true;
+                break;
+            case "hit2":
+                hitDuration = hit2Duration;
+                isAttacking2 = true;
+                break;
+            case "chargedHit":
+                hitDuration = ChargedHitDuration;
+                isAttackingCharged = true;
+                break;
+        }
+        charge = 0;
+        lasthit = attackType;
+        StartCoroutine(AttackSpan(hitDuration * (1f/hit.speed), attackType));
+        StartCoroutine("combo");
+
+    }
+
     void Update()
     {
-        AnimatorStateInfo animInfo = hit.GetCurrentAnimatorStateInfo(0);
-        isAttacking1 = animInfo.IsName("hit1");
-        isAttacking2 = animInfo.IsName("hit2");
-        isAttackingCharged = animInfo.IsName("chargedHit");
         isAttacking = isAttacking1 || isAttacking2 || isAttackingCharged;
         weapon.enabled = weapon.gameObject.tag == "weaponAttack" || weapon.gameObject.tag == "weaponBlock";
+
         if (!isAttacking && !isBlocking)
         {
             weapon.gameObject.tag = "weapon";
         }
-
+        //blocage de coups
         if (Input.GetMouseButtonDown(1) && !isAttacking)
         {
             weapon.gameObject.tag = "weaponBlock";
@@ -134,8 +164,9 @@ public class fightcontroller : MonoBehaviour
             hit.SetBool("block", false);
             weapon.gameObject.tag = "weapon";
         }
+        //////////////////
 
-
+        //charge hit
         if (Input.GetMouseButton(0) && !isCharging && !isAttacking && !isBlocking)
         {
             hit.speed = 1;
@@ -144,48 +175,128 @@ public class fightcontroller : MonoBehaviour
             StartCoroutine("ChargeAttack");
 
         }
-        else if (Input.GetMouseButtonUp(0) && !isAttacking)
-        {
-            weapon.enabled = true;
-            weapon.gameObject.tag = "weaponAttack";
-            hit.SetBool("charging", false);
-            isCharging = false;
-            StopCoroutine("ChargeAttack");
-            //coup chargé
-            if (charge >= 10)
+        ///////////
+        else if (!isAttacking)
+        { 
+            if (Input.GetMouseButtonUp(0))
             {
-                //   hit.SetTrigger("ChargedAttack");
-
-                hit.speed = aSpeed * 0.9f;
-                hit.SetTrigger("hit3");
-                StartCoroutine("combo");
-            }
-            else
-            {
-
-                //coup pas chargé
-                //   hit.SetBool("test", true);
-                if (lastHit == "hit1")
+                weapon.enabled = true;
+                weapon.gameObject.tag = "weaponAttack";
+                hit.SetBool("charging", false);
+                isCharging = false;
+                StopCoroutine("ChargeAttack");
+                //coup chargé
+                if (charge >= 15)
                 {
+                    /*
                     hit.speed = aSpeed;
-                    hit.SetTrigger("hit2");
-                    StopAllCoroutines();
-                    lastHit = "hit2";
+                    hit.SetTrigger("chargedHit");
+                    isAttackingCharged = true;
+                    StartCoroutine(AttackSpan(((1f / hit.speed) * ChargedHitDuration), "hitCharged"));
+                    */
+                    launchAttack("chargedHit", 1);
+
                 }
                 else
                 {
-                    hit.speed = aSpeed;
+                    /*
                     hit.SetTrigger("hit1");
-                    lastHit = "hit1";
+                    hit.speed = aSpeed;
+                    */
+
+                    if (lasthit == "hit1")
+                        launchAttack("hit2", 1);
+                    else
+                        launchAttack("hit1", 1);
+
+
+                }
+            }
+            /*
+
+            isAttacking1 = animInfo.IsName("hit1");
+            isAttacking2 = animInfo.IsName("hit2");
+            isAttackingCharged = animInfo.IsName("chargedHit");
+
+
+
+
+
+
+
+
+
+            else if (Input.GetMouseButtonUp(0) && !isAttacking)
+            {
+                weapon.enabled = true;
+                weapon.gameObject.tag = "weaponAttack";
+                hit.SetBool("charging", false);
+                isCharging = false;
+                StopCoroutine("ChargeAttack");
+                //coup chargé
+                if (charge >= 10)
+                {
+                    //   hit.SetTrigger("ChargedAttack");
+
+                    hit.speed = aSpeed * 0.9f;
+                    hit.SetTrigger("hit3");
+                    StartCoroutine("combo");
+                }
+                else
+                {
+
+                    //coup pas chargé
+                    //   hit.SetBool("test", true);
+                    if (lastHit == "hit1")
+                    {
+                        hit.speed = aSpeed;
+                        hit.SetTrigger("hit2");
+                        StopAllCoroutines();
+                        lastHit = "hit2";
+                    }
+                    else
+                    {
+                        hit.speed = aSpeed;
+                        hit.SetTrigger("hit1");
+                        lastHit = "hit1";
+                    }
+
+
+                    StartCoroutine("combo");
                 }
 
 
-                StartCoroutine("combo");
+                //  isAttacking = isAttacking1 || isAttacking2 || isAttackingCharged;
+                charge = 0;
+
             }
+            */
+        }
+    }
 
-
-            //  isAttacking = isAttacking1 || isAttacking2 || isAttackingCharged;
-            charge = 0;
+    IEnumerator AttackSpan (float seconds, string attackType)
+    {
+        bool swtch = false;
+        while (true)
+        {
+            if (swtch)
+            {
+                switch (attackType) //youpi
+                {
+                    case ("hit1"):
+                        isAttacking1 = false;
+                        break;
+                    case ("hit2"):
+                        isAttacking2 = false;
+                        break;
+                    case ("chargedHit"):
+                        isAttackingCharged = false;
+                        break;
+                }
+                yield break;
+            }
+            swtch = true;
+            yield return new WaitForSeconds(seconds);
         }
     }
 
@@ -195,12 +306,12 @@ public class fightcontroller : MonoBehaviour
         while (true)
         {
             charge++;
-            yield return new WaitForSeconds(0.07f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
 
-
+    
     IEnumerator combo()
     {
 
@@ -210,13 +321,13 @@ public class fightcontroller : MonoBehaviour
         {
             if (swtch)
             {
-                lastHit = null;
-                StopCoroutine("combo");
+                lasthit = "";
+                yield break;
             }
-
+      
             swtch = true;
-
             yield return new WaitForSeconds(0.8f);
         }
     }
+    
 }

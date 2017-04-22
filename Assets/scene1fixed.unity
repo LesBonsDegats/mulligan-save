@@ -4719,7 +4719,6 @@ MonoBehaviour:
   isAttacking2: 0
   isCharging: 0
   isAttackingCharged: 0
-  lastHit: 
   isBlocking: 0
   aSpeed: 0
   damages: {fileID: 1887356054}
@@ -4727,6 +4726,9 @@ MonoBehaviour:
   maxStamina: 0
   Mana: 0
   maxMana: 0
+  hit1Duration: 0.11
+  hit2Duration: 0.16
+  ChargedHitDuration: 0.1
 --- !u!1 &590972289
 GameObject:
   m_ObjectHideFlags: 0
@@ -18799,7 +18801,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1808341552}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
