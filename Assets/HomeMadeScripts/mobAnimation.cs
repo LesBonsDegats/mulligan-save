@@ -21,6 +21,7 @@ public class mobAnimation : MonoBehaviour {
     public dashOnPlayer dashOnPlayer;
     public strafeAroundPlayer strafeAroundPlayer;
     public attackPlayer attackPlayer;
+    public approachPlayer approachPlayer;
 
     public bool isDoingSomething;
     public bool isDashing;
@@ -96,6 +97,10 @@ public class mobAnimation : MonoBehaviour {
                 GetCommands();
                 ExecuteBestCommand();
                 Agenda = new int[5];
+                for (int i = 0; i < 5; i++)
+                {
+                    Agenda[i] = 0;
+                }
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -104,11 +109,30 @@ public class mobAnimation : MonoBehaviour {
 
     public void GetCommands()
     {
-        Agenda[0] = 1;
-        Agenda[1] = 0;
-        Agenda[4] = 0;
+        System.Random rnd = new System.Random();
+        ////////////////////////////////
+        if (approachPlayer != null)
+        {
+           // int tirage = rnd.Next(4);
+           // if (tirage == 1)
+           // {
+                if (approachPlayer.getCommand())
+                {
+                    Agenda[0] = 1;
+                }
+                else { Agenda[0] = 0; }
+          //  }
+        }
+        /////////////////////////////////////
 
-
+        if(strafeAroundPlayer != null)
+        {
+            if (strafeAroundPlayer.getCommand())
+            {
+                Agenda[1] = 1;
+            }
+            else { Agenda[1] = 0; }
+        }
         ////////////////////////////////////////////////////
         if (attackPlayer != null)
         {
@@ -116,10 +140,7 @@ public class mobAnimation : MonoBehaviour {
             {
                 Agenda[3] = 1;
             }
-        }
-        else
-        {
-            Agenda[3] = 0;
+            else { Agenda[3] = 0; }
         }
         ////////////////////////////////////////////////////
         if (dashOnPlayer != null )
@@ -128,12 +149,11 @@ public class mobAnimation : MonoBehaviour {
             {
                 Agenda[2] = 1;
             }
-        }
-        else
-        {
-            Agenda[2] = 0;
+            else { Agenda[2] = 0; }
         }
         //////////////////////////////////////////////////////
+
+        Agenda[4] = 0;
     }
     public void ExecuteBestCommand()
     {
@@ -143,8 +163,6 @@ public class mobAnimation : MonoBehaviour {
 
 
         // approach action à intéret la plus basse, valeur par défaut
-        Agenda[0] = 1; //useless mais pour la clarté on laisse
-
 
         // strafe AroundPlayer, en conflit avec dashOnPlayer et ayant pour but de délayer le dash (créer l'effet de surprise)
         Agenda[1] *= 2;
@@ -168,13 +186,20 @@ public class mobAnimation : MonoBehaviour {
         if (player.isAttacking)
             Agenda[4] *= 2;
 
-        int index = getMaxValueIndex(Agenda);
 
+
+        int index = getMaxValueIndex(Agenda);
         switch (index)
         {
             case (0):
-              //  approach();
-                break;
+                {
+                    if (Agenda[0] != 0)
+                    {
+                        approach();
+                        Debug.Log("youyou");
+                    }
+                }
+                 break;
             case (1):
                 strafe();
                 break;
@@ -186,9 +211,6 @@ public class mobAnimation : MonoBehaviour {
                 break;
             case (4):
                // block();
-                break;
-            default:
-                dash();
                 break;
         }
     }
@@ -220,7 +242,7 @@ public class mobAnimation : MonoBehaviour {
             case 0: //gobelin
                 Anim.Play(str);
                 break;
-            case 2:
+            case 2: //spider
                 Anim.Play(str);
                 break;
             case 1: //squelette
@@ -289,8 +311,14 @@ public class mobAnimation : MonoBehaviour {
     public void approach()
     {
         isApproaching = true;
-
-        StartCoroutine(Span(1, "approach"));
+        if (monsterId != 0)
+        {
+            playAnim("walk");
+        }
+        if (monsterId != 1)
+            StartCoroutine(Span(Anim["walk"].length, "approach"));
+        else
+            StartCoroutine(Span(1.04f, "approach"));
     }
 
     public void strafe()

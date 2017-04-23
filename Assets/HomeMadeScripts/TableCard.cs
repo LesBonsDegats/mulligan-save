@@ -64,7 +64,6 @@ public class TableCard : MonoBehaviour
         s = cam.GetComponent<NewBehaviourScript>();
         SpriteRenderer sr = ShowCard.GetComponent<SpriteRenderer>();
         mainscript = cam.GetComponent<NewBehaviourScript>();
-
     }
 
 

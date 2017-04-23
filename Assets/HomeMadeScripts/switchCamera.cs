@@ -33,6 +33,6 @@ public class switchCamera : MonoBehaviour {
 
         cam2.SetActive(!cam2.activeInHierarchy);
         cam1Listener.enabled = (!cam2.activeInHierarchy);
-        audioSource.enabled = (!cam2.activeInHierarchy);
+       // audioSource.enabled = (!cam2.activeInHierarchy);
     }
 }
